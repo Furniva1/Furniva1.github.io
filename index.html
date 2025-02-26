@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech-no-log</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Tech-no-log</h1>
+        <div class="rotating-text">
+            <p>
+                <span class="word goldenrod active">-- ai discoveries --</span>
+                <span class="word steel-blue">-- ai innovations --</span>
+                <span class="word firebrick">-- ai possibilities --</span>
+                <span class="word medium-sea-green">-- ai opportunities --</span>
+                <span class="word slate-blue">-- ai horizons --</span>
+            </p>
+        </div>
+    </header>
+
+    <div id="game-container">
+        <div id="building1"></div>
+        <div id="building2"></div>
+        <div id="plane"></div>
+        <button id="startButton">Start</button>
+        <div class="congrats-container">
+            <div id="congratsMessage" class="congrats-text">CONGRATULATIONS, YOU WON!</div>
+        </div>
+    </div>
+
+    <iframe id="timezone-iframe" src="timezone/timezone.html" style="position: fixed; border: none; overflow: hidden; width: 320px; height: 200px; bottom: 100px; left: calc(50% - 150px); z-index: 1000;"></iframe>
+
+     <footer>
+        <p>Copyright © 2024 Ian Furnival. All Rights Reserved.</p>
+        <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a> | <a href="/contact">Contact</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

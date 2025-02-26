@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Timezone Roll-a-dex</title>
+    <style>
+        body {
+            overflow: hidden; /* Prevent scrollbars */
+            margin: 0; /* Remove default body margin */
+        }
+
+        .timezone-widget {
+            width: 300px;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 10px; /* Add padding */
+            box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+        }
+
+        .dial-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #prev-timezone, #next-timezone {
+            padding: 10px;
+            margin: 5px;
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            border-radius: 5px;
+        }
+
+        #timezone-name {
+            padding: 10px;
+            font-size: 1.2em;
+            text-align: center;
+            width: 200px; /* Fixed width */
+        }
+
+        .time-display {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 1.5em;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="timezone-widget">
+        <div class="dial-container">
+            <button id="prev-timezone">&lt;</button>
+            <div id="timezone-name"></div>
+            <button id="next-timezone">&gt;</button>
+        </div>
+        <div class="time-display">
+            <span id="current-time"></span>
+        </div>
+    </div>
+    <script>
+        const timezones = [
+            { name: 'Pacific/Honolulu   ', offset: -10 },
+            { name: 'America/Los_Angeles', offset: -8 },
+            { name: 'America/Denver     ', offset: -7 },
+            { name: 'America/Chicago    ', offset: -6 },
+            { name: 'America/New_York   ', offset: -5 },
+            { name: 'Europe/London      ', offset: 0 },
+            { name: 'Europe/Berlin      ', offset: 1 },
+            { name: 'Asia/Tokyo         ', offset: 9 },
+            { name: 'Australia/Sydney   ', offset: 10 },
+        ];
+
+        const prevButton = document.getElementById('prev-timezone');
+        const nextButton = document.getElementById('next-timezone');
+        const timezoneNameDisplay = document.getElementById('timezone-name');
+        const currentTimeDisplay = document.getElementById('current-time');
+
+        let currentTimezoneIndex = 0;
+
+        function updateTime() {
+            const timezone = timezones[currentTimezoneIndex];
+            const now = new Date();
+            const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const targetTime = new Date(utcTime + (3600000 * timezone.offset));
+
+            const timeString = targetTime.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            });
+            currentTimeDisplay.textContent = timeString;
+            timezoneNameDisplay.textContent = timezone.name;
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentTimezoneIndex = (currentTimezoneIndex - 1 + timezones.length) % timezones.length;
+            updateTime();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentTimezoneIndex = (currentTimezoneIndex + 1) % timezones.length;
+            updateTime();
+        });
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
